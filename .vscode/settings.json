@@ -6,6 +6,7 @@
       "default":  true
     }
   ],
-  "editor.inlayHints.enabled": "off"
+  "editor.inlayHints.enabled": "off",
+  "java.compile.nullAnalysis.mode": "automatic"
 
 }
