@@ -131,10 +131,14 @@ public class EstimateController {
         UserOrderDto dto = new UserOrderDto();
         BeanUtils.copyProperties(userOrderForm, dto);
         Integer price = estimateService.getPrice(dto);
+        Integer springPrice = estimateService.getSpringPrice(dto);
+        Integer summerPrice = estimateService.getSummerPrice(dto);
 
         model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
         model.addAttribute("userOrderForm", userOrderForm);
         model.addAttribute("price", price);
+        model.addAttribute("springPrice", springPrice);
+        model.addAttribute("summerPrice", summerPrice);
         return "result";
     }
 
@@ -158,8 +162,12 @@ public class EstimateController {
         UserOrderDto dto = new UserOrderDto();
         BeanUtils.copyProperties(userOrderForm, dto);
         estimateService.registerOrder(dto);
-
         return "complete";
+    }
+
+    @PostMapping(value = "order", params = "backToTopFromResult")
+    String backToTopFromResult(Model model) {
+        return "top";
     }
 
 }

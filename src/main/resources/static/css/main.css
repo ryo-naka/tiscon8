@@ -109,7 +109,7 @@ body {
     line-height: 28px;
     outline: 0.5rem solid #313131;
     outline-offset: 0.5rem;
-    outline-width: 5px;
+    outline-width: 1px;
 }
 
 .ui.main.container {
@@ -306,4 +306,11 @@ td {
     padding: 1em;
     border-radius: .28571429rem;
     border: 1px solid rgba(34,36,38,.15);
+}
+.Price{
+    font-size: 36px;
+}
+
+.red{
+    color: red;
 }

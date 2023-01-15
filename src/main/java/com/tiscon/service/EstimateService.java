@@ -83,7 +83,13 @@ public class EstimateService {
                 + getBoxForPackage(dto.getWashingMachine(), PackageType.WASHING_MACHINE);
 
         // 箱に応じてトラックの種類が変わり、それに応じて料金が変わるためトラック料金を算出する。
-        int pricePerTruck = estimateDAO.getPricePerTruck(boxes);
+        int box_quotient = boxes /200;
+        int box_balance = boxes % 200;
+        int pricePerTruck = 0;
+        if(box_balance != 0){
+            pricePerTruck = estimateDAO.getPricePerTruck(box_balance);
+        }
+        pricePerTruck += box_quotient * 50000;
 
         // オプションサービスの料金を算出する。
         int priceForOptionalService = 0;
@@ -93,6 +99,81 @@ public class EstimateService {
         }
 
         return priceForDistance + pricePerTruck + priceForOptionalService;
+    }
+
+    public Integer getSpringPrice(UserOrderDto dto) {
+        double distance = estimateDAO.getDistance(dto.getOldPrefectureId(), dto.getNewPrefectureId());
+        // 小数点以下を切り捨てる
+        int distanceInt = (int) Math.floor(distance);
+
+        // 距離当たりの料金を算出する
+        int priceForDistance = distanceInt * PRICE_PER_DISTANCE;
+
+        int boxes = getBoxForPackage(dto.getBox(), PackageType.BOX)
+                + getBoxForPackage(dto.getBed(), PackageType.BED)
+                + getBoxForPackage(dto.getBicycle(), PackageType.BICYCLE)
+                + getBoxForPackage(dto.getWashingMachine(), PackageType.WASHING_MACHINE);
+
+        // 箱に応じてトラックの種類が変わり、それに応じて料金が変わるためトラック料金を算出する。
+        int box_quotient = boxes /200;
+        int box_balance = boxes % 200;
+        int pricePerTruck = 0;
+        if(box_balance != 0){
+            pricePerTruck = estimateDAO.getPricePerTruck(box_balance);
+        }
+        pricePerTruck += box_quotient * 50000;
+        // オプションサービスの料金を算出する。
+        int priceForOptionalService = 0;
+
+        if (dto.getWashingMachineInstallation()) {
+            priceForOptionalService = estimateDAO.getPricePerOptionalService(OptionalServiceType.WASHING_MACHINE.getCode());
+        }
+
+        double springPrice = priceForDistance + pricePerTruck;
+
+        springPrice *= 1.5;
+        
+        int springPriceInt = (int) Math.floor(springPrice) + priceForOptionalService; 
+
+        return springPriceInt;
+    }
+
+    public Integer getSummerPrice(UserOrderDto dto) {
+        double distance = estimateDAO.getDistance(dto.getOldPrefectureId(), dto.getNewPrefectureId());
+        // 小数点以下を切り捨てる
+        int distanceInt = (int) Math.floor(distance);
+
+        // 距離当たりの料金を算出する
+        int priceForDistance = distanceInt * PRICE_PER_DISTANCE;
+
+        int boxes = getBoxForPackage(dto.getBox(), PackageType.BOX)
+                + getBoxForPackage(dto.getBed(), PackageType.BED)
+                + getBoxForPackage(dto.getBicycle(), PackageType.BICYCLE)
+                + getBoxForPackage(dto.getWashingMachine(), PackageType.WASHING_MACHINE);
+
+        // 箱に応じてトラックの種類が変わり、それに応じて料金が変わるためトラック料金を算出する。
+        int box_quotient = boxes /200;
+        int box_balance = boxes % 200;
+        int pricePerTruck = 0;
+        if(box_balance != 0){
+            pricePerTruck = estimateDAO.getPricePerTruck(box_balance);
+        }
+        pricePerTruck += box_quotient * 50000;
+
+        // オプションサービスの料金を算出する。
+        int priceForOptionalService = 0;
+
+        if (dto.getWashingMachineInstallation()) {
+            priceForOptionalService = estimateDAO.getPricePerOptionalService(OptionalServiceType.WASHING_MACHINE.getCode());
+        }
+
+        double summerPrice = priceForDistance + pricePerTruck;
+
+        summerPrice *= 1.2;
+        
+        int summerPriceInt = (int) Math.floor(summerPrice) + priceForOptionalService; 
+
+        return summerPriceInt;
     }
 
     /**

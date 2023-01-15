@@ -27,37 +27,37 @@
       <fieldset>
         <div class="sub-title">お客様情報</div>
         <div class="form-group">
-          <label for="customerName">氏名</label>
+          <label for="customerName">氏名<span class = "red">（必須）</span></label>
           <input type="text" id="customerName" name="customerName" th:field="*{customerName}" class="form-control" value="山田太郎" required/>
         </div>
         <div class="form-group">
-          <label for="tel">連絡先TEL（半角ハイフンなし）</label>
-          <input type="tel" id="tel" name="tel" th:field="*{tel}" class="form-control" value="03-1234-5678" required/>
+          <label for="tel">連絡先TEL（半角ハイフンなし）<span class = "red">（必須）</span></label>
+          <input type="text" id="tel" name="tel" th:field="*{tel}" class="form-control" value="03-1234-5678" pattern="\d{2,4}\d{2,4}\d{3,4}" required/>
         </div>
         <div class="form-group">
-          <label for="email">連絡先メールアドレス</label>
-          <input type="text" id="email" name="email" th:field="*{email}" class="form-control" value="test@test.com" required/>
+          <label for="email">連絡先メールアドレス<span class = "red">（必須）</span></label>
+          <input type="email" id="email" name="email" th:field="*{email}" class="form-control" value="test@test.com" required/>
         </div>
         <div class="sub-title">集荷元・お届け先</div>
         <div class="form-group">
-          <label for="oldPrefectureId">集荷元住所（都道府県）</label>
+          <label for="oldPrefectureId">集荷元住所（都道府県）<span class = "red">（必須）</span></label>
           <select id="oldPrefectureId" name="oldPrefectureId" class="form-control">
             <option th:each="prefecture : ${prefectures}" th:value="${prefecture.prefectureId}" th:field="*{oldPrefectureId}">[[${prefecture.prefectureName}]]</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="oldAddress">集荷元住所（市区町村以下）</label>
+          <label for="oldAddress">集荷元住所（市区町村以下）<span class = "red">（必須）</span></label>
           <input type="text" id="oldAddress" name="oldAddress" th:field="*{oldAddress}"
                  class="form-control" value="新宿区西新宿1-1-1" required/>
         </div>
         <div class="form-group">
-          <label for="newPrefectureId">お届け先住所（都道府県）</label>
+          <label for="newPrefectureId">お届け先住所（都道府県）<span class = "red">（必須）</span></label>
           <select id="newPrefectureId" name="newPrefectureId" class="form-control">
             <option th:each="prefecture : ${prefectures}" th:value="${prefecture.prefectureId}" th:field="*{newPrefectureId}">[[${prefecture.prefectureName}]]</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="newAddress">お届け先住所（市区町村以下）</label>
+          <label for="newAddress">お届け先住所（市区町村以下）<span class = "red">（必須）</span></label>
           <input type="text" id="newAddress" name="newAddress" th:field="*{newAddress}" class="form-control"
                  value="札幌市南区1" required/>
         </div>
@@ -66,24 +66,24 @@
       <fieldset>
       <div class="sub-title">お荷物情報</div>
         <div class="form-group">
-          <label for="box">段ボールの個数</label>
-          <input type="text" id="box" name="box" th:field="*{box}" class="form-control" value="10" required/>
+          <label for="box">段ボールの個数(半角数字)<span class = "red">（必須）</span></label>
+          <input type="number" id="box" name="box" th:field="*{box}" class="form-control" value="10" min="0"  required/>
         </div>
         <div class="form-group">
-          <label for="bed">ベッドの個数</label>
-          <input type="text" id="bed" name="bed" th:field="*{bed}" class="form-control" value="3" required/>
+          <label for="bed">ベッドの個数（半角数字）<span class = "red">（必須）</span></label>
+          <input type="number" id="bed" name="bed" th:field="*{bed}" class="form-control" value="3" min="0" required/>
         </div>
         <div class="form-group">
-          <label for="bicycle">自転車の個数</label>
-          <input type="text" id="bicycle" name="bicycle" th:field="*{bicycle}" class="form-control" value="1" required/>
+          <label for="bicycle">自転車の個数（半角数字）<span class = "red">（必須）</span></label>
+          <input type="number" id="bicycle" name="bicycle" th:field="*{bicycle}" class="form-control" value="1" min="0" required/>
         </div>
         <div class="form-group">
-          <label for="washingMachine">洗濯機の個数</label>
-          <input type="text" id="washingMachine" name="washingMachine" th:field="*{washingMachine}" class="form-control"
-                 value="1" required/>
+          <label for="washingMachine">洗濯機の個数（半角数字）<span class = "red">（必須）</span></label>
+          <input type="number" id="washingMachine" name="washingMachine" th:field="*{washingMachine}" class="form-control"
+                 value="1" min="0" required/>
         </div>
         <div class="form-group">
-          <label for="washingMachineInstallation">洗濯機の設置工事申し込み</label>
+          <label for="washingMachineInstallation">洗濯機の設置工事申し込み<span class = "red">（必須）</span></label>
           <select id="washingMachineInstallation" name="washingMachineInstallation" class="form-control" th:field="*{washingMachineInstallation}">
             <option th:value="false" th:text="なし">なし</option>
             <option th:value="true" th:text="あり">あり</option>
@@ -92,7 +92,7 @@
       </fieldset>
       <div class="form-group">
         <div class="text-center">
-          <button type="submit" name="backToTop" class="btn-back">TOPへ戻る</button>
+         
           <button type="submit" name="confirm" class="btn btn-primary">ご入力内容の確認へ</button>
         </div>
       </div>
@@ -103,15 +103,16 @@
 <script src="../js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
 <script src="../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 <script>
-  document.getElementById("form1").onkeypress = (e) => {
-  // form1に入力されたキーを取得
-  const key = e.keyCode || e.charCode || 0;
-  // 13はEnterキーのキーコード
-  if (key == 13) {
-    // アクションを行わない
-    e.preventDefault();
-  }
-}
+    $(function(){
+        $("input"). keydown(function(e) {
+            if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+                return false;
+            } else {
+                return true;
+            }
+        });
+    });
+
 </script>
 </body>
 
